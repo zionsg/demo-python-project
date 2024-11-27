@@ -5,7 +5,7 @@
 import asyncio
 from hypercorn.config import Config
 from hypercorn.asyncio import serve
-from quart import Quart, render_template
+from quart import Quart
 
 # Instantiate server
 app = Quart(__name__)
@@ -44,6 +44,12 @@ app = Quart(__name__)
 """
 @app.route('/healthcheck')
 async def healthcheck():
+    """
+    Route handler for /healthcheck
+
+    :return: JSON response
+    :rtype: dict
+    """
     return {
         "data": {
             "message": "Hello World!"
@@ -57,8 +63,8 @@ async def healthcheck():
 
 # Server config - see https://hypercorn.readthedocs.io/en/latest/how_to_guides/configuring.html
 config = Config()
-config.bind = ["localhost:8080"]
+config.bind = ["localhost:10000"]
 
-# Start server programmatically instead of starting it via commandline using `hypercorn module:index`
+# Start server programmatically instead of starting it via commandline
 # See https://hypercorn.readthedocs.io/en/latest/how_to_guides/api_usage.html#graceful-shutdown
 asyncio.run(serve(app, config))

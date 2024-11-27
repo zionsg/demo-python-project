@@ -87,6 +87,8 @@
               API route handlers in the source code, making it hard for
               developers to see the docs in its context.
     + [Sphinx](https://jsdoc.app/) is used for documenting Python code.
+        * See https://sphinx-rtd-tutorial.readthedocs.io/en/latest/docstrings.html
+          on docstring format.
         * See https://www.sphinx-doc.org/en/master/usage/domains/python.html#info-field-lists
           for list of possible docblock annotations.
 - Testing Tools:
@@ -138,6 +140,9 @@
       be overridden in `docker-compose.override.yml` instead of updating `.env`.
 - Run `poetry install` to install the project dependencies.
 - Run `poetry run poe start` to start the application server.
+- The API can be accessed via `http://localhost:10000`.
+- Additional stuff:
+    + Run `poetry run poe lint` to perform linting checks.
 
 ## Application Design
 - Directory structure for project

@@ -14,6 +14,13 @@ quart = "0.19.9"
 hypercorn = "0.17.3"
 poethepoet = "0.31.0"
 
+[tool.poetry.group.dev.dependencies]
+pylint = "3.3.1"
+
 [tool.poe.tasks]
-# To run in virtual environment created by Poetry for project: poetry run poe <name of task>
+# To run in virtual environment created by Poetry for project, use either one:
+#   poetry run poe <name of Poe task>
+#   poetry run <Bash shell command>
+lint = "pylint src/"
 start = "python src/index.py"
+
