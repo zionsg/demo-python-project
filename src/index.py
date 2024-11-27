@@ -51,19 +51,19 @@ async def healthcheck():
     :rtype: dict
     """
     return {
-        "data": {
-            "message": "Hello World!"
+        'data': {
+            'message': 'Hello World!'
         },
-        "error": None,
-        "meta": {
-            "version": "0.1.0",
+        'error': None,
+        'meta': {
+            'version': '0.1.0',
         },
     }
 # end def healthcheck
 
 # Server config - see https://hypercorn.readthedocs.io/en/latest/how_to_guides/configuring.html
 config = Config()
-config.bind = ["localhost:10000"]
+config.bind = ['localhost:10000']
 
 # Start server programmatically instead of starting it via commandline
 # See https://hypercorn.readthedocs.io/en/latest/how_to_guides/api_usage.html#graceful-shutdown
