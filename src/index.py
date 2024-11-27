@@ -4,12 +4,13 @@ Application entrypoint
 
 # Import external modules
 import asyncio
-from hypercorn.config import Config
-from hypercorn.asyncio import serve
+from hypercorn.asyncio import serve as hypercorn_serve
+from hypercorn.config import Config as HypercornConfig
 from quart import Quart
 
-# Import internal modules
+# Import modules in subfolders relative to folder where Python process started
 from api.api_response import ApiResponse
+from app.helper import helper
 
 # Instantiate server
 app = Quart(__name__)
@@ -36,7 +37,8 @@ app = Quart(__name__)
     HTTP/1.1 200 OK
     {
       "data": {
-        "message": "OK"
+        "message": "OK",
+        "timestamp": "2024-11-28T00:10:30Z"
       },
       "error": null,
       "meta": {
@@ -55,16 +57,17 @@ async def healthcheck():
     :rtype: dict
     """
     response = ApiResponse(200, '', {
-        'message': 'Hello World!'
+        'message': 'OK',
+        'timestamp': helper['timestamp'](),
     })
 
     return response.to_dict()
 # end def healthcheck
 
 # Server config - see https://hypercorn.readthedocs.io/en/latest/how_to_guides/configuring.html
-config = Config()
-config.bind = ['localhost:10000']
+server_config = HypercornConfig()
+server_config.bind = ['localhost:10000']
 
 # Start server programmatically instead of starting it via commandline
-# See https://hypercorn.readthedocs.io/en/latest/how_to_guides/api_usage.html#graceful-shutdown
-asyncio.run(serve(app, config))
+# See https://hypercorn.readthedocs.io/en/latest/how_to_guides/api_usage.html
+asyncio.run(hypercorn_serve(app, server_config))
