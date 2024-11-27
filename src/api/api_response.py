@@ -7,6 +7,17 @@ class ApiResponse:
     """
 
     def __init__(self, status_code, error_message = None, data_object = None):
+        """
+        Constructor
+
+        :param: int status_code: HTTP status code for response
+        :param: str|dict error_message: For error response, used as
+            error message if string, else used for error object (should contain
+            message key), set to '' for success response, defaults to None
+        :param: dict data_object: Data to be returned for success response,
+            set to None for error response, defaults to None
+        """
+
         if error_message is None or error_message == '':
             self.error = None
         elif isinstance(error_message, str):
@@ -33,6 +44,9 @@ class ApiResponse:
         """
         Convert instance to dictionary for returning as response from a
         route handler
+
+        :rtype: dict Dictionary containing top-level keys data, error, meta,
+            each either a dictionary or None
         """
 
         return {

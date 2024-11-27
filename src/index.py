@@ -59,7 +59,7 @@ async def healthcheck():
 
     response = ApiResponse(200, '', {
         'message': 'OK',
-        'timestamp': helper['timestamp'](),
+        'timestamp': helper['timestamp'](seconds_only=True),
     })
 
     return response.to_dict()
