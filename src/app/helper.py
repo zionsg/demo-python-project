@@ -4,10 +4,16 @@ Module
 
 from datetime import datetime
 
-@lambda _: _() # this decorator turns the function into an IIFE
+@lambda _: _() # decorator turns function into an IIFE (Immediately Invoked Function Expression)
 def helper():
     """
     Common server-side helper functions
+
+    Usage:
+        from app.helper import helper  # path relative to src/index.py
+        result = helper['timestamp']() # helper() not needed due to IIFE
+
+    :rtype: dict
     """
 
     def timestamp():

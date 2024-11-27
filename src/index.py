@@ -8,7 +8,7 @@ from hypercorn.asyncio import serve as hypercorn_serve
 from hypercorn.config import Config as HypercornConfig
 from quart import Quart
 
-# Import modules in subfolders relative to folder where Python process started
+# Import modules in subfolders relative to folder where Python process started, i.e. src/index.py
 from api.api_response import ApiResponse
 from app.helper import helper
 
@@ -56,6 +56,7 @@ async def healthcheck():
     :return: JSON response
     :rtype: dict
     """
+
     response = ApiResponse(200, '', {
         'message': 'OK',
         'timestamp': helper['timestamp'](),
