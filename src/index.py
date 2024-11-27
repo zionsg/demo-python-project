@@ -1,11 +1,15 @@
 """
-  Application entrypoint
+Application entrypoint
 """
 
+# Import external modules
 import asyncio
 from hypercorn.config import Config
 from hypercorn.asyncio import serve
 from quart import Quart
+
+# Import internal modules
+from api.api_response import ApiResponse
 
 # Instantiate server
 app = Quart(__name__)
@@ -50,15 +54,11 @@ async def healthcheck():
     :return: JSON response
     :rtype: dict
     """
-    return {
-        'data': {
-            'message': 'Hello World!'
-        },
-        'error': None,
-        'meta': {
-            'version': '0.1.0',
-        },
-    }
+    response = ApiResponse(200, '', {
+        'message': 'Hello World!'
+    })
+
+    return response.to_dict()
 # end def healthcheck
 
 # Server config - see https://hypercorn.readthedocs.io/en/latest/how_to_guides/configuring.html

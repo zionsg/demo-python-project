@@ -145,6 +145,15 @@
     + Run `poetry run poe lint` to perform linting checks.
 
 ## Application Design
+- Use only `None` when setting default values for optional method parameters
+  in function definitions and assign the actual desired default inside
+  the function code, e.g. `def my_func(x, y=None)` instead of
+  `def my_func(x, y=0)`. This is because Python's default arguments are
+  evaluated once when the function is defined, not each time the function is
+  called.
+    + https://docs.python-guide.org/writing/gotchas/#mutable-default-arguments
+    + https://florimond.dev/en/posts/2018/08/python-mutable-defaults-are-the-source-of-all-evil
+    + https://www.valentinog.com/blog/tirl-python-default-arguments/
 - Directory structure for project
   (diagram generated using `tree --charset unicode --dirsfirst -a -n -I ".git|.venv"`):
 
