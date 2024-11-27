@@ -1,7 +1,3 @@
-"""
-Module proving API response class
-"""
-
 from dataclasses import dataclass
 
 @dataclass # decorator needed else Pylint error "R0903: Too few public methods"

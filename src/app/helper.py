@@ -1,7 +1,3 @@
-"""
-Module
-"""
-
 from datetime import datetime
 
 @lambda _: _() # decorator turns function into an IIFE (Immediately Invoked Function Expression)

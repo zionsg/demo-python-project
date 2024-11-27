@@ -24,3 +24,7 @@ pylint = "3.3.1"
 lint = "pylint src/"
 start = "python src/index.py"
 
+[tool.pylint.'MESSAGES CONTROL']
+# Pylint rules
+max-line-length = 120
+disable = "missing-module-docstring"
