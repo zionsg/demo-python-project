@@ -26,7 +26,7 @@ def helper():
         return datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%fZ')
     # end def timestamp
 
-    # Return public interface
+    # Return public interface of IIFE, does not pollute global namespace with internal vars/funcs
     return {
         'timestamp': timestamp,
     }
