@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "demo-python"
+version = "0.1.0"
+package-mode = false
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.dependencies]
+# Use exact versions for dependencies except for Python itself
+python = "^3.11"
+quart = "0.19.9"
+hypercorn = "0.17.3"
+poethepoet = "0.31.0"
+
+[tool.poe.tasks]
+# To run in virtual environment created by Poetry for project: poetry run poe <name of task>
+start = "python src/index.py"
