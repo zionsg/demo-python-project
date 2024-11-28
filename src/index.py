@@ -4,6 +4,7 @@ Application entrypoint
 
 # Import external modules
 import asyncio
+import sys
 from hypercorn.asyncio import serve as hypercorn_serve
 from hypercorn.config import Config as HypercornConfig
 from quart import Quart
@@ -11,6 +12,17 @@ from quart import Quart
 # Import modules in subfolders relative to folder where Python process started, i.e. src/index.py
 from api.api_response import ApiResponse
 from app.helper import helper
+
+def uncaught_exception_handler(exception_type, exception_value, exception_traceback):
+    """
+    Handle uncaught exceptions in main thread - https://stackoverflow.com/a/16993115
+    """
+    print('Uncaught exception in main thread')
+    print(exception_type)
+    print(exception_value)
+    print(exception_traceback)
+# end def uncaught_exception_handler
+sys.excepthook = uncaught_exception_handler
 
 # Instantiate server
 app = Quart(__name__)
