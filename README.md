@@ -18,6 +18,10 @@
       e.g. `pyenv install 3.11.10` to install a specific version and
       `pyenv local 3.11.10` to set the version to be used inside a project
       directory and its subdirectories.
+        * Note that Python build dependencies should be installed before
+          attempting to install a new Python version (see
+          https://github.com/pyenv/pyenv/wiki#suggested-build-environment
+          for more info).
     + For the base Docker image, `python:3.11.10-slim-bookworm` is used.
       As of Nov 2024, the stable release for Debian is version 12, codenamed
       Bookworm, released 2023-06-10 (see https://wiki.debian.org/DebianReleases
