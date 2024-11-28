@@ -159,6 +159,10 @@
     + https://www.cs.toronto.edu/~david/course-notes/csc110-111/06-memory-model/03-mutable-data-types.html
     + https://florimond.dev/en/posts/2018/08/python-mutable-defaults-are-the-source-of-all-evil
     + https://www.valentinog.com/blog/tirl-python-default-arguments/
+- Each `.py` file corresponds to 1 module and should only contain 1 top-level
+  function or class. There should be no top-level variables in the file. This
+  is to avoid pollution of the global namespace and unnecessary exposure of
+  internal variables/functions.
 - Directory structure for project
   (diagram generated using `tree --charset unicode --dirsfirst -a -n -I ".git|.venv"`):
 
