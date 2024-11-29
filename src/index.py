@@ -55,7 +55,7 @@ def main():
         print(err)
         response = ApiResponse(500, str(err))
 
-        return response.to_dict()
+        return response.to_dict(), response.meta['status_code']
     # end def app_error_handler
 
     # Add routes

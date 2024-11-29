@@ -54,6 +54,6 @@ def routes(app):
             'timestamp': helper['timestamp'](seconds_only=True),
         })
 
-        return response.to_dict()
+        return response.to_dict(), response.meta['status_code']
     # end def healthcheck
 # end def routes
