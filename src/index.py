@@ -64,6 +64,7 @@ def main():
     # Server config - see https://hypercorn.readthedocs.io/en/latest/how_to_guides/configuring.html
     server_config = HypercornConfig()
     server_config.bind = ['localhost:10000']
+    server_config.loglevel = 'CRITICAL'
 
     # Start server programmatically instead of starting it via commandline
     # See https://hypercorn.readthedocs.io/en/latest/how_to_guides/api_usage.html
