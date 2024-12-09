@@ -1,5 +1,10 @@
 # Demo Python Project
 
+## Sections
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Application Design](#application-design)
+
 ## Requirements
 - [Docker Engine](https://docs.docker.com/engine/release-notes/) >= 27.3.1
 - [Docker Compose](https://docs.docker.com/compose/release-notes/) >= 2.29.7
