@@ -2,6 +2,7 @@
 
 ## Sections
 - [Requirements](#requirements)
+- [API Documentation](#api-documentation)
 - [Installation](#installation)
 - [Application Design](#application-design)
 
@@ -275,3 +276,16 @@
     |-- poetry.toml     # Created by Poetry for local Poetry configuration
     `-- pyproject.toml  # Project configuration
     ```
+
+- Workflow
+    + Application startup:
+        * Docker container starts with entrypoint being `src/index.py`.
+        * `main()` called.
+        * Routes from `src/api/routes.py` loaded.
+        * Hypercorn server started.
+    + Request journey:
+        * User calls `http://localhost:10000/healthcheck`.
+        * Request goes to Docker container > `src/index.py` >
+          `src/api/routes.py` > `@app.route('/healthcheck')` >
+          `healthcheck()` which is the route handler.
+        * JSON response returned by route handler > Hypercorn server > user.
