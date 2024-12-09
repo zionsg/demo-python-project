@@ -9,6 +9,47 @@ def routes(app):
     :rtype: None
     """
 
+    """
+    All endpoints will return ApiResponse.
+
+    Note that "apiSuccess {object} data" must be redeclared in the API
+    docblock for individual endpoints else properties under data,
+    e.g. "apiSuccess {object} data.username", will come under error/meta key
+    in generated HTML. Same for error and meta if additional properties are
+    to be added under them.
+
+    @apiDefine ApiResponse
+    @apiHeader {string} Content-Type application/json
+    @apiSuccess {object} data All properties for success response put in here.
+    @apiSuccess {null} error This will be set to null for success response.
+    @apiSuccess {object} meta Metadata such as status code and pagination.
+    @apiSuccess {number} meta.status_code HTTP status code for success response.
+    @apiSuccess {string} meta.request_id Unique ID computed for each request to group all
+        audit records created for a request, e.g. for database access.
+    @apiSuccess {string} meta.version Application version.
+    @apiError (Error) {null} data This will be set to null for error response.
+    @apiError (Error) {object} error All properties for error response put in here.
+    @apiError (Error) {string} error.message Error message.
+    @apiError (Error) {object} meta Metadata such as status code and pagination.
+    @apiError (Error) {number} meta.status_code HTTP status code for error response.
+    @apiError (Error) {string} meta.request_id Unique ID computed for each request to group all
+        audit records created for a request, e.g. for database access.
+    @apiError (Error) {string} meta.version Application version.
+    @apiErrorExample {application/json} Error (not allowed action on record):
+        HTTP/1.1 403 Forbidden
+        {
+          "data": null,
+          "error": {
+            "message": "Forbidden from <action name> action on <resource name> resource."
+          },
+          "meta": {
+            "status_code": 400,
+            "request_id": "1631175138159-ac98f1c3-df0e-40b1-81f9-3c03bcdf6135",
+            "version": "v0.10.0-develop-f94fda8-20211122T0156Z"
+          }
+        }
+    """
+
     @app.route('/healthcheck', methods=['GET'])
     async def healthcheck():
         """

@@ -1,0 +1,32 @@
+{
+  "name": "demo-python-project",
+  "version": "0.1.0",
+  "scripts": {
+    "//": [
+      "Exact dependency versions are pinned - see https://betterdev.blog/pin-exact-dependency-versions/ for more info.",
+      "apidoc-markdown needs to be v7.2.4 or higher for @apiPrivate to work, as per its GitHub issue #25."
+    ],
+    "doc": "apidoc -i src/api -o docs/apidoc/ -p -S && apidoc-markdown -i src/api -o docs/apidoc/index.md -p && sed -i -E 's/# <a name=[^>]+><\\/a>/#/g' docs/apidoc/index.md"
+  },
+  "devDependencies": {
+    "apidoc": "1.2.0",
+    "apidoc-markdown": "7.3.2"
+  },
+  "apidoc": {
+    "//": "No sampleUrl cos need to run server with apiDoc HTML files in order to send sample requests.",
+    "name": "API Documentation",
+    "title": "Demo App API",
+    "url": "http://localhost:10000",
+    "description": "",
+    "header": {
+      "title": "",
+      "filename": "docs/apidoc/APIDOC-HEADER.md"
+    },
+    "order": [
+      "Auth"
+    ],
+    "template": {
+      "withCompare": false
+    }
+  }
+}

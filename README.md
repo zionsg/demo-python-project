@@ -105,6 +105,20 @@
         * Chosen for its similarity to ESLint for Node.js.
     + [Pytest](https://github.com/pytest-dev/pytest) is used for tests.
 
+## API Documentation
+- See [`docs/apidoc/index.md`](/docs/apidoc/index.md) or open
+  [`docs/apidoc/index.html`](/docs/apidoc/index.html) in a browser to
+  view documentation for API endpoints.
+    + The webpage does not allow making of sample requests as that would require
+      running of a localhost server to serve the webpage.
+- Run `npm run doc` to regenerate the API documentation in `docs/apidoc` folder.
+    + This only processes files in `src/api` folder, i.e. the API component.
+    + The header in the generated documentation is from
+      [`docs/apidoc/APIDOC-HEADER.md`](/docs/apidoc/APIDOC-HEADER.md).
+- Note that most of the endpoints, if not all, are marked as private as
+  they are for internal use only and will not show up in generated docs if
+  the `private` option is not used with apiDoc.
+
 ## Installation
 - This section is meant for software developers working on the source code
   in this repository.
@@ -205,6 +219,16 @@
           ticked.
 - Additional stuff:
     + Run `poetry run poe lint` to perform linting checks.
+    + To generate API documentation:
+        * Node.js and NPM need to be installed.
+            - For development purposes, it is recommended that
+              [nvm](https://nodejs.org/en/download/package-manager/#nvm) be used
+              to install Node.js and npm as it can switch between multiple
+              versions if need be for different projects,
+              e.g. `nvm install 22.12.0` to install a specific version
+              and `nvm alias default 22.12.0` to set the default version.
+        * Run `npm install` to install frontend dependencies.
+        * Run `npm run doc` to regenerate API documentation.
 
 ## Application Design
 - Use only `None` when setting default values for optional method parameters

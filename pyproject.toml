@@ -15,12 +15,13 @@ hypercorn = "0.17.3"
 poethepoet = "0.31.0"
 
 [tool.poetry.group.dev.dependencies]
+# To add dev dependency: poetry add <name of package> --group dev
 pylint = "3.3.1"
 
 [tool.poe.tasks]
 # To run in virtual environment created by Poetry for project, use either one:
-#   poetry run poe <name of Poe task>
-#   poetry run <Bash shell command>
+#   - poetry run poe <name of Poe task>
+#   - poetry run <Bash shell command>
 build-local = { shell = "DOCKER_BUILDKIT=1 BUILDKIT_PROGRESS=plain docker build --tag demo-app:local --no-cache ." }
 lint = "pylint src/"
 start = "docker compose up"
@@ -29,4 +30,4 @@ stop = "docker compose down"
 [tool.pylint.'MESSAGES CONTROL']
 # Pylint rules
 max-line-length = 120
-disable = "missing-module-docstring"
+disable = "missing-module-docstring,pointless-string-statement"
