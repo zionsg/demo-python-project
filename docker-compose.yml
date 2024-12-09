@@ -1,0 +1,73 @@
+##
+# Docker Compose config file
+##
+
+# Compose project name, to follow Docker tag for deployment environment (production, staging, feature, testing, local)
+# By default, if this is not specified, the directory name is used. The Compose project name is
+# prefixed to all resources such as networks/volumes/services, e.g. my-network/my-volume/my-service
+# will be created as production_my-network/production_my-volume/production-my-service-1 (note
+# underscores, hyphens & numeric suffix), but can be still referenced without the prefix/suffix in
+# this Docker Compose file and within the same Docker network.
+# This can be overridden in docker-compose.override.yml and is useful when deploying multiple
+# instances of the same application on the same machine, e.g. staging & feature, without having to
+# make a copy with new unique resource names such as "my-network-feature". See
+# https://docs.docker.com/compose/compose-file/04-version-and-name/ for more info.
+name: production
+
+# Networks - do not use default network or set name else Compose project name will not be prefixed
+networks:
+  demo-network:
+
+# Docker volumes - do not set name else Compose project name will not be prefixed
+# Volumes can be accessed on host machine via `Mountpoint` shown in `docker volume inspect <volume>` on Linux
+# or `\\wsl$\docker-desktop-data\version-pack-data\community\docker\volumes\` in File Explorer on Windows (if using WSL)
+volumes:
+  demo-app-log: # application log files stored here if any
+
+# Services - do not set container_name else Compose project name will not be prefixed.
+# All services should be prefixed with "demo-" to prevent conflict with Docker Compose files from other repos
+# See https://github.com/compose-spec/compose-spec/blob/master/spec.md#depends_on for depends_on conditions
+services:
+  demo-app:
+    # On localhost, build the image first before running `docker compose`
+    image: demo-app:production
+    ports: # use !override if modifying DEMO_PORT_* under `environment` attribute below without modifying .env
+      # Publish ports - external:internal
+      - ${DEMO_PORT_EXTERNAL}:${DEMO_PORT_INTERNAL}
+    volumes:
+      # It is mentioned in https://docs.docker.com/compose/compose-file/13-merge/#unique-resources that
+      # "When merging Compose files, Compose appends new entries that do not violate a uniqueness constraint and
+      # merge entries that share a unique key". The unique key for volumes is the target, not the source, hence
+      # the following can be overridden by docker-compose.override.yml.
+      # It is mentioned in https://docs.docker.com/compose/compose-file/compose-file-v3/#volumes that
+      # when using the short syntax, the source or target directories will be created if they do not exist,
+      # e.g. /non-existent-source-on-host/subfolder:/non-existent-target-in-container/not-created-by-dockerfile
+      # Target directory is created in Dockerfile
+      - demo-app-log:/home/python/app/log # should not need to override this cos Docker volume can be accessed on host
+      # Deliberate use of bind mount instead of Docker volume. This is needed for file uploads else the application
+      # will keep writing the temp files into the Docker container and increase the disk usage via
+      # /var/lib/docker/overlay2 (Docker images cannot be modified, hence any new files written in Docker container
+      # will be written as a new overlay on top of the original Docker image, which is not removed even when the
+      # file in the Docker container is removed). Docker volume not used as it needs to be explicitly cleared. See
+      # https://buisteven.medium.com/debugging-docker-overlay2-out-of-space-d1edc2ea412f for more info.
+      # Only /tmp and /var/tmp are world-writable. See https://www.pathname.com/fhs/pub/fhs-2.3.html for more info.
+      # The target directory is created in Dockerfile, /tmp on host machine used as source directory
+      # instead of /var/tmp as it is the standard Linux directory for temp files such as file
+      # uploads and is automatically cleared by the operating system on the host machine.
+      - /tmp:/home/python/app/tmp
+    env_file:
+      # This imports all env vars from .env into the Docker container, avoiding the need to copy
+      # .env in Dockerfile. No need to duplicate the list of env vars manually also, unless the
+      # Docker container uses a different name, e.g. POSTGRES_USER=${DEMO_DB_USER}
+      - .env
+    command: poetry run python src/index.py # start application
+    restart: unless-stopped
+    stop_grace_period: 180s
+    healthcheck:
+      test: curl --fail http://localhost:$$DEMO_PORT_INTERNAL/healthcheck || exit 1
+      interval: 60s
+      retries: 10
+      start_period: 10s
+      timeout: 10s
+    networks:
+      - demo-network

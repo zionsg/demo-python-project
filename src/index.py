@@ -4,6 +4,7 @@ Application entrypoint
 
 # Import external modules
 import asyncio
+import os
 import sys
 from hypercorn.asyncio import serve as hypercorn_serve
 from hypercorn.config import Config as HypercornConfig
@@ -62,12 +63,14 @@ def main():
     api_routes(app)
 
     # Server config - see https://hypercorn.readthedocs.io/en/latest/how_to_guides/configuring.html
+    internal_port = os.getenv('DEMO_PORT_INTERNAL', '9000')
     server_config = HypercornConfig()
-    server_config.bind = ['localhost:10000']
-    server_config.loglevel = 'CRITICAL'
+    server_config.bind = [f"0.0.0.0:{internal_port}"] # listen on all IPs else not accessible outside Docker container
+    server_config.loglevel = 'CRITICAL' # reduce log noise from Hypercorn
 
     # Start server programmatically instead of starting it via commandline
     # See https://hypercorn.readthedocs.io/en/latest/how_to_guides/api_usage.html
+    print(f"Server started listening at port {internal_port}.") # this must come before serve() for it to show
     asyncio.run(hypercorn_serve(app, server_config))
 # end def main
 

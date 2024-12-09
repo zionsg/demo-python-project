@@ -1,0 +1,11 @@
+# Ignore these for security and also that Docker will take very long to read all
+# the files inside the folders during build (cos they are in the context directory)
+.git/
+.venv/
+node_modules/
+vendor/
+.dockerignore
+.gitignore
+.npmrc
+Dockerfile
+npm-debug.log

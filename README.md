@@ -143,8 +143,61 @@
       consistent with server deployments, it is recommended that env vars
       be overridden in `docker-compose.override.yml` instead of updating `.env`.
 - Run `poetry install` to install the project dependencies.
-- Run `poetry run poe start` to start the application server.
-- The API can be accessed via `http://localhost:10000`.
+- To run the application locally:
+    + For consistency with production environment, the application should be run
+      using Docker during local development (which settles all dependencies)
+      and not directly using `poetry run python src/index.py`.
+        * May need to run Docker commands as `sudo` depending on machine
+          (see https://docs.docker.com/engine/install/linux-postinstall/).
+        * If you see a stacktrace error when running a Docker command in
+          Windows Subsystem for Linux (WSL),
+          e.g. "Error: ENOENT: no such file or directory, uv_cwd",
+          try running `cd .` and run the Docker command again.
+    + Create a `docker-compose.override.yml` which will be automatically used by
+      Docker Compose to override specified settings in `docker-compose.yml`.
+      This is used to temporarily tweak the Docker Compose configuration on the
+      local machine and will not be committed to the repository. See
+      https://docs.docker.com/compose/extends for more info.
+        * Bare minimum contents for the application to run locally (overriding
+          of ports & env vars not necessary but included to be consistent
+          with server deployments):
+
+          ```
+          # docker-compose.override.yml in root of repository
+          name: local # override Compose project name to follow Docker tag used here
+
+          services:
+            demo-app:
+              # Use "local" tag for Docker image instead of "production" tag in docker-compose.yml
+              image: demo-app:local
+              ports: !override
+                # use !override as modifying DEMO_PORT_* under `environment` attribute below without modifying .env
+                - 10000:9000
+              environment:
+                - DEMO_ENV=local
+                - DEMO_PORT_EXTERNAL=10000
+                - DEMO_PORT_INTERNAL=9000
+          ```
+
+    + Run `poetry run poe build-local` 1st to build the Docker image with "local" tag.
+        * Always run this after modifying `pyproject.toml`, e.g. installing of
+          packages.
+    + Run `poetry run poe start` to start the Docker container. This is a
+      shortcut in `pyproject.toml` that runs the actual Docker Compose command.
+      Refer to there and use that command if the host machine does not have npm.
+      May need to run as as `sudo` depending on machine, due to Docker command.
+    + Run `poetry run poe stop` to stop the Docker container or just press
+      `Ctrl+C`. However, the former should be used as it will properly shut down
+      the container, else it may have problems restarting later.
+    + The API can be accessed via `http://localhost:10000` using
+      [cURL](https://curl.se/) or [Postman](https://www.postman.com/).
+        * See `DEMO_PORT_*` env vars for port settings.
+        * When using cURL on Windows, values need to be enclosed in
+          double quotes instead of single quotes, hence double quotes inside
+          request body (e.g. if sending JSON) need to be escaped.
+        * When using Postman, if an empty response is returned with status code
+          400, check that the checkbox for the "Content-Length" header is
+          ticked.
 - Additional stuff:
     + Run `poetry run poe lint` to perform linting checks.
 
@@ -164,18 +217,32 @@
   is to avoid pollution of the global namespace and unnecessary exposure of
   internal variables/functions.
 - Directory structure for project
-  (diagram generated using `tree --charset unicode --dirsfirst -a -n -I ".git|.venv"`):
+  (diagram generated using `tree --charset unicode --dirsfirst -a -n -I ".git|.venv|__pycache__"`):
 
     ```
     .
+    |-- docs  # Except for README/CHANGELOG, all documentation and linked images/files should be placed here
+    |   `-- apidoc  # Generated API documentation
+    |       |-- APIDOC-HEADER.md  # Header used when generating API documentation
+    |       |-- index.html
+    |       `-- index.md
     |-- src  # Source code
+    |   |-- api
+    |   |   |-- api_response.py
+    |   |   `-- routes.py
+    |   |-- app
+    |   |   `-- helper.py
     |   `-- index.py  # Application entrypoint
     |-- tests  # Test suites
+    |-- .dockerignore
+    |-- .env.example  # List of all environment variables for application, to be copied to .env
     |-- .gitattributes
     |-- .gitignore
     |-- .python-version  # Created by pyenv, indicates Python version to use for virtual environment
+    |-- Dockerfile
     |-- README.md
+    |-- docker-compose.yml
     |-- poetry.lock
-    |-- poetry.toml  # Created by Poetry for local Poetry configuration
+    |-- poetry.toml     # Created by Poetry for local Poetry configuration
     `-- pyproject.toml  # Project configuration
     ```

@@ -1,3 +1,5 @@
+# poetry.toml is created when `poetry config --local virtualenvs.create true` is run in the project directory
+
 [virtualenvs]
 create = true
 in-project = true
