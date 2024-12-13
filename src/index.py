@@ -70,7 +70,7 @@ def main():
 
     # Start server programmatically instead of starting it via commandline
     # See https://hypercorn.readthedocs.io/en/latest/how_to_guides/api_usage.html
-    print(f"Server started listening at port {internal_port}.") # this must come before serve() for it to show
+    print(f"Server started listening at port {internal_port}.", flush=True) # need flush=True to print immediately
     asyncio.run(hypercorn_serve(app, server_config))
 # end def main
 
