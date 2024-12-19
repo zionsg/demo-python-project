@@ -9,10 +9,12 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.dependencies]
 # Use exact versions for dependencies except for Python itself
+# watchdog not in dev.dependencies cos watchmedo may be used in docker-compose.override.yml
 python = "^3.11"
 quart = "0.19.9"
 hypercorn = "0.17.3"
 poethepoet = "0.31.0"
+watchdog = {version = "6.0.0", extras = ["watchmedo"]}
 
 [tool.poetry.group.dev.dependencies]
 # To add dev dependency: poetry add <name of package> --group dev
@@ -22,12 +24,12 @@ pylint = "3.3.1"
 # To run in virtual environment created by Poetry for project, use either one:
 #   - poetry run poe <name of Poe task>
 #   - poetry run <Bash shell command>
+# watchmedo needs to be in shell else unable to run src/index.py
 build-local = { shell = "DOCKER_BUILDKIT=1 BUILDKIT_PROGRESS=plain docker build --tag demo-app:local --no-cache ." }
+dev = { shell = "watchmedo auto-restart --directory=./ --pattern=*.py --recursive -- poetry run python src/index.py" }
 lint = "pylint src/"
-start = "docker compose up"
-stop = "docker compose down"
 
 [tool.pylint.'MESSAGES CONTROL']
 # Pylint rules
 max-line-length = 120
-disable = "missing-module-docstring,pointless-string-statement"
+disable = "broad-exception-caught,missing-module-docstring,pointless-string-statement,too-few-public-methods,unused-argument"

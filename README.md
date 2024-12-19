@@ -199,14 +199,45 @@
                 - DEMO_PORT_INTERNAL=9000
           ```
 
+        * A common use case during local development would be to use the `local`
+          tag for the Docker image and enabling live reload inside the Docker
+          container when changes are made to the source code on a Windows host
+          machine.
+
+          ```
+          # docker-compose.override.yml in root of repository
+          name: local # override Compose project name to follow Docker tag used here
+
+          services:
+            demo-app:
+              # Use "local" tag for Docker image instead of "production" tag in docker-compose.yml
+              image: demo-app:local
+              ports: !override
+                # use !override as modifying DEMO_PORT_* under `environment` attribute below without modifying .env
+                - 10000:9000
+              environment:
+                - DEMO_ENV=local
+                - DEMO_PORT_EXTERNAL=10000
+                - DEMO_PORT_INTERNAL=9000
+              volumes:
+                # Cannot use the shortform "- ./src/:/var/lib/app/src" on Windows
+                # Use the .venv and site-packages folders inside container not host
+                # cos packages may use Linux native libraries and not work on host platform
+                - type: bind
+                  source: /mnt/c/Users/Me/localhost/www/demo-python-project/pyproject.toml
+                  target: /home/python/app/pyproject.toml
+                - type: bind
+                  source: /mnt/c/Users/Me/localhost/www/demo-python-project/src
+                  target: /home/python/app/src
+              command: poetry run poe dev
+          ```
+
     + Run `poetry run poe build-local` 1st to build the Docker image with "local" tag.
         * Always run this after modifying `pyproject.toml`, e.g. installing of
           packages.
-    + Run `poetry run poe start` to start the Docker container. This is a
-      shortcut in `pyproject.toml` that runs the actual Docker Compose command.
-      Refer to there and use that command if the host machine does not have npm.
-      May need to run as as `sudo` depending on machine, due to Docker command.
-    + Run `poetry run poe stop` to stop the Docker container or just press
+    + Run `docker compose up` to start the Docker container. May need to run as
+      `sudo` depending on machine, due to Docker command.
+    + Run `docker compose down` to stop the Docker container or just press
       `Ctrl+C`. However, the former should be used as it will properly shut down
       the container, else it may have problems restarting later.
     + The API can be accessed via `http://localhost:10000` using

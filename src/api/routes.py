@@ -1,3 +1,4 @@
+# Import internal modules
 from api.api_response import ApiResponse
 from app.helper import helper
 
@@ -92,7 +93,7 @@ def routes(app):
         """
         response = ApiResponse(200, '', {
             'message': 'OK',
-            'timestamp': helper['timestamp'](seconds_only=True),
+            'timestamp': helper.timestamp(seconds_only=True),
         })
 
         return response.to_dict(), response.meta['status_code']
