@@ -105,6 +105,6 @@ def logger():
         # end def format_message
     # end class Logger
 
-    # Return public interface of IIFE, does not pollute global namespace with internal vars/funcs
+    # Return public interface of IIFE, don't pollute global namespace with internal class/func/var
     return Logger() # only 1 instance will be created as the function is immediately invoked
 # end def logger

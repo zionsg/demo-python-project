@@ -276,9 +276,9 @@
 - Each `.py` file corresponds to 1 module and should only contain 1 top-level
   function or class. There should be no top-level variables in the file. This
   is to avoid pollution of the global namespace and unnecessary exposure of
-  internal variables/functions.
+  internal classes/functions/variables.
 - Directory structure for project
-  (diagram generated using `tree --charset unicode --dirsfirst -a -n -I ".git|.venv|__pycache__"`):
+  (diagram generated using `tree --charset unicode --dirsfirst -a -n -I ".git|.venv|__pycache__|node_modules"`):
 
     ```
     .
@@ -292,7 +292,9 @@
     |   |   |-- api_response.py
     |   |   `-- routes.py
     |   |-- app
-    |   |   `-- helper.py
+    |   |   |-- config.py  # application configuration
+    |   |   |-- helper.py  # server-side helper functions
+    |   |   `-- logger.py  # logger
     |   `-- index.py  # Application entrypoint
     |-- tests  # Test suites
     |-- .dockerignore
@@ -304,7 +306,7 @@
     |-- README.md
     |-- docker-compose.yml
     |-- poetry.lock
-    |-- poetry.toml     # Created by Poetry for local Poetry configuration
+    |-- poetry.toml     # Local Poetry configuration created using `poetry config --local`
     `-- pyproject.toml  # Project configuration
     ```
 
