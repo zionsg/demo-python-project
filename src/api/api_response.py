@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-@dataclass # decorator needed else Pylint error "R0903: Too few public methods"
+@dataclass # https://docs.python.org/3/library/dataclasses.html
 class ApiResponse:
     """
     Standardized format for responses from API endpoints
