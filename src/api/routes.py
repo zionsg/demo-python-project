@@ -1,3 +1,6 @@
+# Import external modules
+from quart import websocket
+
 # Import internal modules
 from api.api_response import ApiResponse
 from app.helper import helper
@@ -50,6 +53,32 @@ def routes(app):
           }
         }
     """
+
+    @app.websocket('/ws')
+    async def ws():
+        """
+        Websocket handler for /ws
+
+        To test, create a test.html with the following contents and open it in
+        a browser:
+            <script>
+                // This will not run if pasted in console directly due to Content Security Policy
+                let socket = new WebSocket('ws://localhost:10000/ws');
+                socket.addEventListener('message', (event) => {
+                    console.log(event.data);
+                });
+                socket.addEventListener('open', (event) => {
+                    console.log('Websocket connection established.');
+                    socket.send('Hello World');
+                });
+            </script>
+        """
+        while True:
+            data = await websocket.receive()
+            print(data, flush=True)
+            await websocket.send(data)
+        # end while
+    # end def ws
 
     @app.route('/healthcheck', methods=['GET'])
     async def healthcheck():

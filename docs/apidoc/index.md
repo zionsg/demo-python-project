@@ -24,7 +24,7 @@ ___
 ## Catch-All
 [Back to top](#top)
 
-<p>All unmatched routes, e.g. /api/abc, are handled by this. Note that there is no success response.</p>
+<p>All unmatched routes, e.g. /api/invalid-route, are handled by this. Note that there is no success response.</p>
 
 ```
 GET /
