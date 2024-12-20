@@ -13,12 +13,100 @@
 # Table of contents
 
 - [System](#System)
+  - [Catch-All](#Catch-All)
   - [Health Check](#Health-Check)
 
 ___
 
 
 # System
+
+## Catch-All
+[Back to top](#top)
+
+<p>All unmatched routes, e.g. /api/abc, are handled by this. Note that there is no success response.</p>
+
+```
+GET /
+```
+
+### Headers - `Header`
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| Content-Type | `string` | <p>application/json</p> |
+
+### Examples
+
+Example usage:
+
+```curl
+curl --location --request GET "http://localhost:10000/invalid-route"
+--header "Content-Type: application/json"
+```
+
+### Success response
+
+#### Success response - `Success 200`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| data | `object` | <p>All properties for success response put in here.</p> |
+| error | `null` | <p>This will be set to null for success response.</p> |
+| meta | `object` | <p>Metadata such as status code and pagination.</p> |
+| meta.status_code | `number` | <p>HTTP status code for success response.</p> |
+| meta.request_id | `string` | <p>Unique ID computed for each request to group all audit records created for a request, e.g. for database access.</p> |
+| meta.version | `string` | <p>Application version.</p> |
+
+### Error response
+
+#### Error response - `Error`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| data | `null` | <p>This will be set to null for error response.</p> |
+| error | `object` | <p>All properties for error response put in here.</p> |
+| error.message | `string` | <p>Error message.</p> |
+| meta | `object` | <p>Metadata such as status code and pagination.</p> |
+| meta.status_code | `number` | <p>HTTP status code for error response.</p> |
+| meta.request_id | `string` | <p>Unique ID computed for each request to group all audit records created for a request, e.g. for database access.</p> |
+| meta.version | `string` | <p>Application version.</p> |
+
+### Error response example
+
+#### Error response example - `Error (not found):`
+
+```application/json
+HTTP/1.1 404 Not Found
+{
+  "data": null,
+  "error": {
+    "message": "Endpoint /invalid-route not found."
+  },
+  "meta": {
+    "status_code": 404,
+    "request_id": "1631679055974-89d413c2-6e44-440d-ab3c-9767a91a3f50",
+    "version": "v0.10.0-develop-f94fda8-20211122T0156Z"
+  }
+}
+```
+
+#### Error response example - `Error (not allowed action on record):`
+
+```application/json
+HTTP/1.1 403 Forbidden
+{
+  "data": null,
+  "error": {
+    "message": "Forbidden from <action name> action on <resource name> resource."
+  },
+  "meta": {
+    "status_code": 400,
+    "request_id": "1631175138159-ac98f1c3-df0e-40b1-81f9-3c03bcdf6135",
+    "version": "v0.10.0-develop-f94fda8-20211122T0156Z"
+  }
+}
+```
 
 ## Health Check
 [Back to top](#top)

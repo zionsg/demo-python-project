@@ -37,11 +37,11 @@ def main():
     # end def uncaught_exception_handler
     sys.excepthook = uncaught_exception_handler
 
-    # Instantiate application - not named "app" to avoid confusion with modules in app folder
-    application = Quart(__name__)
+    # Instantiate application
+    app = Quart(__name__)
 
     # Add error handler
-    @application.errorhandler(Exception)
+    @app.errorhandler(Exception)
     def app_error_handler(error):
         """
         Handle uncaught exceptions in app routes
@@ -57,7 +57,7 @@ def main():
     # end def app_error_handler
 
     # Add routes
-    api_routes(application)
+    api_routes(app)
 
     # Server config - see https://hypercorn.readthedocs.io/en/latest/how_to_guides/configuring.html
     internal_port = config.port_internal
@@ -68,7 +68,7 @@ def main():
     # Start server programmatically instead of starting it via commandline
     # See https://hypercorn.readthedocs.io/en/latest/how_to_guides/api_usage.html
     logger.info(None, f"Server started listening at port {internal_port}.")
-    asyncio.run(hypercorn_serve(application, server_config))
+    asyncio.run(hypercorn_serve(app, server_config))
 # end def main
 
 # Run application

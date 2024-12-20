@@ -57,10 +57,10 @@ def routes(app):
         Route handler for /healthcheck
 
         :return: JSON response
-        :rtype: dict
+        :rtype: tuple(dict, int)
 
         @api {get} /healthcheck Health Check
-        @apiName Health Check
+        @apiName HealthCheck
         @apiGroup System
         @apiDescription Authentication not required. This endpoint is used for
             healthcheck in `docker-compose.yml`.
@@ -98,4 +98,43 @@ def routes(app):
 
         return response.to_dict(), response.meta['status_code']
     # end def healthcheck
+
+    @app.route('/', defaults={'path': ''})
+    @app.route('/<path:path>')
+    async def catchall(path):
+        """
+        Route handler for catch-all route
+
+        :return: JSON response
+        :rtype: tuple(dict, int)
+
+        @api {get} / Catch-All
+        @apiName CatchAll
+        @apiGroup System
+        @apiDescription All unmatched routes, e.g. /api/invalid-route, are
+            handled by this. Note that there is no success response.
+
+        @apiExample {curl} Example usage:
+            curl --location --request GET "http://localhost:10000/invalid-route"
+            --header "Content-Type: application/json"
+
+        @apiUse ApiResponse
+        @apiErrorExample {application/json} Error (not found):
+            HTTP/1.1 404 Not Found
+            {
+              "data": null,
+              "error": {
+                "message": "Endpoint /invalid-route not found."
+              },
+              "meta": {
+                "status_code": 404,
+                "request_id": "1631679055974-89d413c2-6e44-440d-ab3c-9767a91a3f50",
+                "version": "v0.10.0-develop-f94fda8-20211122T0156Z"
+              }
+            }
+        """
+        response = ApiResponse(404, f"Endpoint /{path} not found.")
+
+        return response.to_dict(), response.meta['status_code']
+    # end def catchall
 # end def routes
