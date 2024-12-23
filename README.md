@@ -1,5 +1,8 @@
 # Demo Python Project
 
+Paths in all documentation, even those in subfolders, are relative to the root
+of the repository. Shell commands are all run from the root of the repository.
+
 ## Sections
 - [Requirements](#requirements)
 - [API Documentation](#api-documentation)
