@@ -10,11 +10,11 @@ class ApiResponse:
         """
         Constructor
 
-        :param: int status_code: HTTP status code for response
-        :param: str|dict error_message: For error response, used as
+        :param int status_code: HTTP status code for response
+        :param str|dict error_message: For error response, used as
             error message if string, else used for error object (should contain
             message key), set to '' for success response, defaults to None
-        :param: dict data_object: Data to be returned for success response,
+        :param dict data_object: Data to be returned for success response,
             set to None for error response, defaults to None
         """
 

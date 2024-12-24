@@ -63,7 +63,7 @@ class Logger:
         :param quart.request request: Request
         :param str message: Message
         :param Exception exception: Exception if any
-        :rtype str
+        :rtype: str
         """
         result = message
         if isinstance(exception, Exception):
