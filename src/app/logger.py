@@ -23,7 +23,7 @@ class Logger:
         app_name = config.app_name.upper()
         console_formatter = logging.Formatter( # https://docs.python.org/2/library/logging.html#logging.Formatter
             # See https://docs.python.org/2/library/logging.html#logrecord-attributes
-            # The rest of the format is handled by format_message() as the request object is not available here
+            # The rest of the format is handled by __format_message() as the request object is not available here
             f"[%(asctime)s.%(msecs)dZ] [%(levelname)s] [{app_name}] [%(pathname)s:%(lineno)d] %(message)s",
             '%Y-%m-%dT%H:%M:%S' # https://docs.python.org/3/library/time.html#time.strftime
         )
@@ -41,7 +41,7 @@ class Logger:
         :param Exception exception: Exception if any
         :rtype: None
         """
-        self.lumberjack.error(self.format_message(request, message, exception))
+        self.lumberjack.error(self.__format_message(request, message, exception))
     # end def exception
 
     def info(self, request, message):
@@ -52,10 +52,10 @@ class Logger:
         :param str message: Message
         :rtype: None
         """
-        self.lumberjack.info(self.format_message(request, message))
+        self.lumberjack.info(self.__format_message(request, message))
     # end def info
 
-    def format_message(self, request, message, exception=None):
+    def __format_message(self, request, message, exception=None):
         """
         Format message
         Log format from log() in https://github.com/zionsg/getmail/blob/master/src/App/Logger.php
@@ -89,7 +89,7 @@ class Logger:
         result = result + f" [SVR {ip}:{port_external},{port_internal} {env} {hostname} {version}]"
 
         return result
-    # end def format_message
+    # end def __format_message
 # end class Logger
 
 # Note this variable is exposed as a public property when this file is imported
