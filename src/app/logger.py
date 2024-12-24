@@ -12,8 +12,8 @@ class Logger:
         """
         Constructor
         """
-        self.instance = logging.getLogger(__name__)
-        self.instance.setLevel(logging.DEBUG)
+        self.lumberjack = logging.getLogger(__name__) # not named instance/logger to avoid confusion
+        self.lumberjack.setLevel(logging.DEBUG)
 
         # Create console handler with formatter and add to logger
         console_handler = logging.StreamHandler()
@@ -29,7 +29,7 @@ class Logger:
         )
 
         console_handler.setFormatter(console_formatter)
-        self.instance.addHandler(console_handler)
+        self.lumberjack.addHandler(console_handler)
     # end __init__
 
     def error(self, request, message, exception=None):
@@ -41,7 +41,7 @@ class Logger:
         :param Exception exception: Exception if any
         :rtype: None
         """
-        self.instance.error(self.format_message(request, message, exception))
+        self.lumberjack.error(self.format_message(request, message, exception))
     # end def exception
 
     def info(self, request, message):
@@ -52,7 +52,7 @@ class Logger:
         :param str message: Message
         :rtype: None
         """
-        self.instance.info(self.format_message(request, message))
+        self.lumberjack.info(self.format_message(request, message))
     # end def info
 
     def format_message(self, request, message, exception=None):
