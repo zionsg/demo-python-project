@@ -33,6 +33,10 @@ def main():
         :param str exception_traceback: Exception traceback
         :rtype: None
         """
+        if isinstance(exception_value, KeyboardInterrupt): # skip if error due to user restarting container manually
+            return
+        # end if
+
         logger.error(None, 'Uncaught exception in main thread.', exception_value)
     # end def uncaught_exception_handler
     sys.excepthook = uncaught_exception_handler
