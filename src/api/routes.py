@@ -9,7 +9,7 @@ def routes(app):
     """
     Routes for API component
 
-    :param: quart.app.Quart app
+    :param quart.app.Quart app: The application
     :rtype: None
     """
 

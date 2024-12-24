@@ -28,9 +28,9 @@ def main():
         Handle uncaught exceptions in main thread
         See https://stackoverflow.com/a/16993115
 
-        :param: str exception_type Type of exception
-        :param: Exception exception_value Exception object
-        :param: str exception_traceback Exception traceback
+        :param str exception_type: Type of exception
+        :param Exception exception_value: Exception object
+        :param str exception_traceback: Exception traceback
         :rtype: None
         """
         logger.error(None, 'Uncaught exception in main thread.', exception_value)
@@ -47,7 +47,7 @@ def main():
         Handle uncaught exceptions in app routes
         See https://flask.palletsprojects.com/en/stable/errorhandling/
 
-        :param: Exception err
+        :param Exception err: The exception
         :rtype: dict
         """
         logger.error(request, 'Uncaught exception in app.', error)

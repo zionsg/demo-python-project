@@ -39,7 +39,7 @@ class Logger:
         :param quart.request request: Request
         :param str message: Message
         :param Exception exception: Exception if any
-        :rtype None
+        :rtype: None
         """
         self.instance.error(self.format_message(request, message, exception))
     # end def exception
@@ -50,7 +50,7 @@ class Logger:
 
         :param quart.request request: Request
         :param str message: Message
-        :rtype None
+        :rtype: None
         """
         self.instance.info(self.format_message(request, message))
     # end def info
