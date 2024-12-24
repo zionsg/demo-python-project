@@ -1,7 +1,7 @@
 from datetime import datetime
 
 @lambda _: _() # decorator turns function into an IIFE (Immediately Invoked Function Expression)
-def helper():
+def helper(): # this module is written as an IIFE for reference, instead of like src/app/logger.py
     """
     Get initialized helper
 

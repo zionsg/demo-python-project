@@ -32,4 +32,4 @@ lint = "pylint src/"
 [tool.pylint.'MESSAGES CONTROL']
 # Pylint rules
 max-line-length = 120
-disable = "broad-exception-caught,missing-module-docstring,pointless-string-statement,too-few-public-methods,unused-argument"
+disable = "broad-exception-caught,missing-module-docstring,pointless-string-statement,too-few-public-methods,too-many-instance-attributes,unused-argument"
