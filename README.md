@@ -296,9 +296,9 @@ of the repository. Shell commands are all run from the root of the repository.
     |   |   |-- api_response.py
     |   |   `-- routes.py
     |   |-- app
-    |   |   |-- config.py  # application configuration
-    |   |   |-- helper.py  # server-side helper functions
-    |   |   `-- logger.py  # logger
+    |   |   |-- config.py  # Application configuration
+    |   |   |-- helper.py  # Server-side helper functions
+    |   |   `-- logger.py  # Logger
     |   `-- index.py  # Application entrypoint
     |-- tests  # Test suites
     |-- .dockerignore
