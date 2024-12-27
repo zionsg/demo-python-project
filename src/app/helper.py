@@ -17,7 +17,7 @@ def helper(): # this module is written as an IIFE for reference, instead of like
         Common server-side helper functions
         """
 
-        def timestamp(self, seconds_only=False):
+        def timestamp(self, seconds_only: bool=False) -> str:
             """
             Get current timestamp
 

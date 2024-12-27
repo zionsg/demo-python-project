@@ -6,7 +6,7 @@ class ApiResponse:
     Standardized format for responses from API endpoints
     """
 
-    def __init__(self, status_code, error_message = None, data_object = None):
+    def __init__(self, status_code: int, error_message=None, data_object: dict=None):
         """
         Constructor
 
@@ -40,7 +40,7 @@ class ApiResponse:
         }
     # end def __init__
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         """
         Convert instance to dictionary for returning as response from a
         route handler

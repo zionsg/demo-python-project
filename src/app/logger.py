@@ -32,7 +32,7 @@ class Logger:
         self.lumberjack.addHandler(console_handler)
     # end __init__
 
-    def error(self, request, message, exception=None):
+    def error(self, request, message: str, exception: Exception=None) -> None:
         """
         Log error message with optional exception
 
@@ -44,7 +44,7 @@ class Logger:
         self.lumberjack.error(self.__format_message(request, message, exception))
     # end def exception
 
-    def info(self, request, message):
+    def info(self, request, message: str) -> None:
         """
         Log informational message
 
@@ -55,7 +55,7 @@ class Logger:
         self.lumberjack.info(self.__format_message(request, message))
     # end def info
 
-    def __format_message(self, request, message, exception=None):
+    def __format_message(self, request, message: str, exception: Exception=None) -> None:
         """
         Format message
         Log format from log() in https://github.com/zionsg/getmail/blob/master/src/App/Logger.php
