@@ -277,10 +277,14 @@ of the repository. Shell commands are all run from the root of the repository.
     + https://florimond.dev/en/posts/2018/08/python-mutable-defaults-are-the-source-of-all-evil
     + https://www.valentinog.com/blog/tirl-python-default-arguments/
 - Each `.py` file corresponds to 1 module and should only contain 1 top-level
-  function, or 1 top-level class with 1 top-level instance of the class. There
-  should be no other top-level variables in the file. This is to avoid pollution
-  of the global namespace and unnecessary exposure of internal
+  function, or 1 top-level class with an optional top-level instance of the
+  class. There should be no other top-level variables in the file. This is to
+  avoid pollution of the global namespace and unnecessary exposure of internal
   classes/functions/variables.
+- For private properties and methods in classes, prefix their names with
+  double underscores, e.g. `__foo`, `def __bar(self)`.
+    + https://www.hacksoft.io/blog/underscores-dunders-and-everything-nice
+    + https://www.pythonmorsels.com/every-dunder-method/
 - Directory structure for project
   (diagram generated using `tree --charset unicode --dirsfirst -a -n -I ".git|.venv|__pycache__|node_modules"`):
 
