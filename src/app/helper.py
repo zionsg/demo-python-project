@@ -17,6 +17,32 @@ def helper(): # this module is written as an IIFE for reference, instead of like
         Common server-side helper functions
         """
 
+        def dict_to_comma_delimited(self, source_dict: dict) -> str:
+            """
+            Convert dictionary to comma-delimited string
+
+            Each key-value pair in the dictionary will be turned into a colon-delimited tuple.
+
+            Colon is used as the secondary delimiter for the tuples instead of semi-colon as the
+            bottom half of the semi-colon looks like a comma which can cause confusion, even though
+            the semi-colon is grammatically more suitable.
+
+            :param dict source_dict: Dictionary to convert
+            :return: E.g.: { a:1, b:'test' } becomes 'a:1,b:test'
+            :rtype: str
+            """
+            if not isinstance(source_dict, dict) or source_dict is None:
+                return ''
+            # end if
+
+            result_list = []
+            for _, (key, value) in enumerate(source_dict.items()): # _ used for index to prevent Pylint unused-variable
+                result_list.append(f"{key}:{value}")
+            # end for source_dict
+
+            return ','.join(result_list)
+        # end def dict_to_comma_delimited
+
         def timestamp(self, seconds_only: bool=False) -> str:
             """
             Get current timestamp
