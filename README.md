@@ -1,8 +1,8 @@
 # Demo Python Project
 
 **Disclaimer** This is just a personal hobbyist project to experiment with
-a Python application with a simple structure without the use of bloated
-frameworks.
+creating/Dockerizing a Python application with a simple structure without the
+use of bloated frameworks.
 
 Paths in all documentation, even those in subfolders, are relative to the root
 of the repository. Shell commands are all run from the root of the repository.
