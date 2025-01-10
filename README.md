@@ -270,6 +270,20 @@ of the repository. Shell commands are all run from the root of the repository.
         * Run `npm run doc` to regenerate API documentation.
 
 ## Application Design
+- Each `.py` file corresponds to 1 module and should only contain 1 top-level
+  function, or 1 top-level class with an optional top-level instance of the
+  class. There should be no other top-level variables in the file. This is to
+  avoid pollution of the global namespace and unnecessary exposure of internal
+  classes/functions/variables.
+- When accessing keys in dictionaries, use `get()` instead of using square
+  brackets as the latter will throw an exception if the key is not found,
+  i.e. use `some_dict.get('some_key')` instead of `some_dict['some_key']`.
+  Unlike Node.js, there is no null coalescing operator such as
+  `some_object?.['some_key']`.
+- For private properties and methods in classes, prefix their names with
+  double underscores, e.g. `__foo`, `def __bar(self)`.
+    + https://www.hacksoft.io/blog/underscores-dunders-and-everything-nice
+    + https://www.pythonmorsels.com/every-dunder-method/
 - Use only `None` when setting default values for optional method parameters
   of mutable object type in function definitions and assign the actual desired
   default inside the function code, e.g. write `def append_to(element, to=None)`
@@ -280,15 +294,6 @@ of the repository. Shell commands are all run from the root of the repository.
     + https://www.cs.toronto.edu/~david/course-notes/csc110-111/06-memory-model/03-mutable-data-types.html
     + https://florimond.dev/en/posts/2018/08/python-mutable-defaults-are-the-source-of-all-evil
     + https://www.valentinog.com/blog/tirl-python-default-arguments/
-- Each `.py` file corresponds to 1 module and should only contain 1 top-level
-  function, or 1 top-level class with an optional top-level instance of the
-  class. There should be no other top-level variables in the file. This is to
-  avoid pollution of the global namespace and unnecessary exposure of internal
-  classes/functions/variables.
-- For private properties and methods in classes, prefix their names with
-  double underscores, e.g. `__foo`, `def __bar(self)`.
-    + https://www.hacksoft.io/blog/underscores-dunders-and-everything-nice
-    + https://www.pythonmorsels.com/every-dunder-method/
 - Directory structure for project
   (diagram generated using `tree --charset unicode --dirsfirst -a -n -I ".git|.venv|__pycache__|node_modules"`):
 
