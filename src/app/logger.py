@@ -16,7 +16,8 @@ class Logger:
         self.lumberjack.setLevel(logging.DEBUG)
 
         # Create console handler with formatter and add to logger
-        console_handler = logging.StreamHandler()
+        # Stream to stdout else grepping error logs in Docker container logs won't work as they are streamed to stderr
+        console_handler = logging.StreamHandler(stream=sys.stdout)
         console_handler.setLevel(logging.DEBUG)
 
         # Log format from log() in https://github.com/zionsg/getmail/blob/master/src/App/Logger.php
