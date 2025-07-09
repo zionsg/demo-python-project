@@ -30,7 +30,7 @@ of the repository. Shell commands are all run from the root of the repository.
       can switch between multiple versions if need be for different projects,
       e.g. `pyenv install 3.11.10` to install a specific version and
       `pyenv local 3.11.10` to set the version to be used inside a project
-      directory and its subdirectories.
+      directory and its subdirectories (this creates a `.python-version` file).
         * Note that Python build dependencies should be installed before
           attempting to install a new Python version (see
           https://github.com/pyenv/pyenv/wiki#suggested-build-environment
