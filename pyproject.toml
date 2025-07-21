@@ -8,7 +8,7 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.dependencies]
-# Use exact versions for dependencies except for Python itself
+# Use exact versions for dependencies except for Python itself, e.g.: poetry add quart@0.19.9
 # watchdog not in dev.dependencies cos watchmedo may be used in docker-compose.override.yml
 python = "^3.11"
 quart = "0.19.9"
