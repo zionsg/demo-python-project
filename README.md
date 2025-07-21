@@ -15,13 +15,16 @@ of the repository. Shell commands are all run from the root of the repository.
 
 ## Requirements
 - [Docker Engine](https://docs.docker.com/engine/release-notes/) >= 27.3.1
+    + [Install Ubuntu on Windows with WSL 2](https://learn.microsoft.com/en-us/windows/wsl/install)
+    + [Install Docker Engine on Ubuntu](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
+    + [Linux post-installation steps for Docker Engine](https://docs.docker.com/engine/install/linux-postinstall/)
 - [Docker Compose](https://docs.docker.com/compose/release-notes/) >= 2.29.7
     + Docker Compose v3 not used as it does not support the `extends` key.
     + Docker Compose v1 not used as it does not support the `depends_on` key.
     + Note that Docker Compose v2 uses the `docker compose` command (without
       hyphen) via the Compose plugin for Docker whereas Docker Compose v1 uses
       the `docker-compose` command (with hyphen).
-        * [Install Docker Compose v2 plugin on Ubuntu 22.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-22-04)
+        * [Install Docker Compose v2 plugin on Ubuntu](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
 - [Python](https://www.python.org/) >= 3.11
     + Released 2024-04-24, EOL 2027-10, system-installed version in Debian 12
       (Bookworm).
