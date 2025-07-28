@@ -15,10 +15,12 @@ of the repository. Shell commands are all run from the root of the repository.
 
 ## Requirements
 - [Docker Engine](https://docs.docker.com/engine/release-notes/) >= 27.3.1
+    + [Changelog](https://docs.docker.com/engine/release-notes/27/)
     + [Install Ubuntu on Windows with WSL 2](https://learn.microsoft.com/en-us/windows/wsl/install)
     + [Install Docker Engine on Ubuntu](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
     + [Linux post-installation steps for Docker Engine](https://docs.docker.com/engine/install/linux-postinstall/)
 - [Docker Compose](https://docs.docker.com/compose/release-notes/) >= 2.29.7
+    + [Changelog](https://docs.docker.com/compose/releases/release-notes/)
     + Docker Compose v3 not used as it does not support the `extends` key.
     + Docker Compose v1 not used as it does not support the `depends_on` key.
     + Note that Docker Compose v2 uses the `docker compose` command (without
@@ -26,6 +28,7 @@ of the repository. Shell commands are all run from the root of the repository.
       the `docker-compose` command (with hyphen).
         * [Install Docker Compose v2 plugin on Ubuntu](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
 - [Python](https://www.python.org/) >= 3.11
+    + [Changelog](https://docs.python.org/3/whatsnew/changelog.html)
     + Released 2024-04-24, EOL 2027-10, system-installed version in Debian 12
       (Bookworm).
     + For development purposes, it is recommended that
@@ -46,6 +49,7 @@ of the repository. Shell commands are all run from the root of the repository.
       and create larger Docker images (see
       https://pythonspeed.com/articles/alpine-docker-python/ for more info).
 - [Poetry](https://python-poetry.org/) >= 1.8.3
+    + [Changelog](https://github.com/python-poetry/poetry/blob/main/CHANGELOG.md)
     + This is used for dependency management.
     + [uv](https://github.com/astral-sh/uv) is not used for the following
       reasons:
@@ -67,6 +71,7 @@ of the repository. Shell commands are all run from the root of the repository.
           venture capital, might create a monoculture around UV and later
           disengage due to financial pressures".
 - [Quart](https://github.com/pallets/quart) >= 0.19.9
+    + [Changelog](https://quart.palletsprojects.com/en/latest/changes/)
     + This is an async Python micro framework for building web applications.
     + Quart is chosen over [Flask](https://flask.palletsprojects.com/en/stable/)
       as it is recommended in the Flask
@@ -89,6 +94,7 @@ of the repository. Shell commands are all run from the root of the repository.
           add/remove keys or change types in various nesting levels without
           warning.
 - [Hypercon](https://github.com/pgjones/hypercorn)
+    + [Changelog](https://github.com/pgjones/hypercorn/blob/main/CHANGELOG.rst)
     + Web server for Python.
     + Hypercon is chosen for the following reasons:
         * It was initially part of Quart before being separated out into a
